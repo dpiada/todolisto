@@ -30,9 +30,28 @@ class Mongo:
         except Exception as e:
             raise MongoError(f"Failed to fetch documents: {e}")
         
-    def read(self):
+    def read(self, date: str = None, priority: str = None, status: str = None,
+            order_by: str = 'date', ascending: bool = True):
         try:
-            return self.collection.find()
+            filter_query = {}
+
+            if date:
+                filter_query['date'] = date
+
+            if priority:
+                filter_query['priority'] = priority
+
+            if status:
+                filter_query['status'] = status
+
+            sort_query = {}
+            if order_by:
+                sort_query[order_by] = 1 if ascending else -1
+
+            cursor = self.collection.find(filter_query).sort(sort_query)
+
+            return cursor
+
         except Exception as e:
             raise MongoError(f"Failed to fetch documents: {e}")
 
@@ -48,8 +67,3 @@ class Mongo:
         except Exception as e:
             raise MongoError(f"Failed to delete document: {e}")
 
-    def close(self):
-        try:
-            self.collection.client.close()
-        except Exception as e:
-            raise MongoError(f"Failed to close MongoDB connection: {e}")

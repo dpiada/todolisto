@@ -7,13 +7,14 @@ mongo_client = Mongo(hostname="mongodb", port=27017, username="mongolone", passw
 
 router = APIRouter()
 
-@router.get("/tasks")
-def get_tasks():
-    tasks = mongo_client.read()
+@router.get("/tasks/")
+def get_tasks(date = None, priority = None, status = None, order_by = 'date', ascending = True):
+    tasks = mongo_client.read(date, priority, status, order_by, ascending)
     response = [
             TaskResponse(
                 id=str(task["_id"]),
-                message=task["message"],
+                title=task["title"],
+                description=task["description"],
                 date=task["date"],
                 priority=task["priority"],
                 status=task["status"]
@@ -28,7 +29,8 @@ def get_task(id):
     task = mongo_client.read_one(object_id=id)
     response = TaskResponse(
                 id=str(task["_id"]),
-                message=task["message"],
+                title=task["title"],
+                description=task["description"],
                 date=task["date"],
                 priority=task["priority"],
                 status=task["status"]

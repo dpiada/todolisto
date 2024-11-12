@@ -36,10 +36,9 @@ class Mongo:
         except Exception as e:
             raise MongoError(f"Failed to fetch documents: {e}")
 
-    def update(self, filter, update_data):
+    def update(self, object_id, update_data):
         try:
-            result = self.collection.update_one(filter, {"$set": update_data})
-            return result.modified_count > 0
+            return self.collection.update_one({"_id": ObjectId(object_id)}, {"$set": update_data})
         except Exception as e:
             raise MongoError(f"Failed to update document: {e}")
 

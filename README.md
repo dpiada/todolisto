@@ -17,6 +17,12 @@ The choice of using mongodb it's determinated from the nature of data to save. A
 1. clone repository 
     `git clone git@github.com:dpiada/todolisto.git`
 
+2. change project directory 
+    `cd todolisto`
+
+3. run docker compose 
+    `docker compose up`
+
 # Backend
 
 # Frontend

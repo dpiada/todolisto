@@ -14,6 +14,9 @@ The choice of using mongodb it's determinated from the nature of data to save. A
 
 # How to start locally
 
+1. clone repository 
+    `git clone git@github.com:dpiada/todolisto.git`
+
 # Backend
 
 # Frontend

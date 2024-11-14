@@ -1,46 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Checkbox = ({ checked, onChange }) => {
-    return <input type="checkbox" checked={checked} onChange={onChange} />;
-  };
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-// Item Component to display each individual item
-const Task = ({ item, onStatusChange }) => {
+import Badge from 'react-bootstrap/Badge';
 
-    const handleCheckboxChange = () => {
-        onStatusChange(item.id, !item.status);
-        };
+const Task = ({ item }) => {
+
+    const level = {
+        'low':'success',
+        'normal':'primary',
+        'high':'danger'
+    }
 
     return (
-        <div style={styles.itemContainer}>
-            <table>
-                <tbody>
-                <tr>
-                    <td>
-                    {/* Pass the current status and handle change */}
-                    <Checkbox checked={item.status === 'Completed'} onChange={handleCheckboxChange} />
-                    </td>
-                    <td><strong>Title: </strong>{item.title}</td>
-                    <td><strong>Date: </strong>{new Date(item.date).toLocaleDateString()}</td>
-                    <td><strong>Priority: </strong>{item.priority}</td>
-                </tr>
-                    <tr>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <Container>
+            <Row>
+                <Col><Badge bg={level[item.priority]}>{item.priority}</Badge></Col>
+                <Col>{item.title}</Col>
+                <Col>{item.date}</Col>
+                <Col>{ item.status ? <strong>Completed</strong> : <strong>Incomplete</strong>} </Col>
+            </Row>
+        </Container>
     );
 };
 
 export default Task;
-
-
-// Simple styles
-const styles = {
-  itemContainer: {
-    borderBottom: '1px solid #ddd',
-    padding: '10px',
-    marginBottom: '10px',
-  },
-};
-

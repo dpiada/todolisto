@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const TaskAdder = ({ onTaskAdded }) => {
+const TaskAdder = ({ onTaskReload }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -32,18 +32,16 @@ const TaskAdder = ({ onTaskAdded }) => {
 
       const data = await response.json();
 
-      // After task is added, notify App to fetch the updated task list
-      onTaskAdded();
+      onTaskReload();
 
-      alert(`Task added successfully! ID: ${data.id}`);
+      alert(`Task added successfully! ID: ${data}`);
 
-      // Reset form data after submission
       setFormData({
         title: "",
         description: "",
-        date: "",
+        date: (new Date().toISOString()).slice(0, 10),
         priority: "normal",
-        status: true,
+        status: false,
       });
     } catch (error) {
       console.error('Error:', error);

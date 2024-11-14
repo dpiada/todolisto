@@ -47,3 +47,18 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
+
+  ################################
+  #       Frontend Todo-list      #
+  ################################
+  frontend:
+    ports:
+      - 3000:3000
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    networks:
+      - application
+    depends_on:
+      mongodb:
+        condition: service_healthy

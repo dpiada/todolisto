@@ -24,7 +24,7 @@ def get_tasks(date = None, priority = None, status = None, order_by = 'date', as
         
     return response
 
-@router.get("/task/:id")
+@router.get("/task/{id}")
 def get_task(id):
     task = mongo_client.read_one(object_id=id)
     response = TaskResponse(
@@ -38,7 +38,7 @@ def get_task(id):
 
     return response
 
-@router.put("/update/:id")
+@router.put("/update/{id}")
 def update_task(id, task: TaskRequest):
     updated_id = mongo_client.update(id,jsonable_encoder(task))
     return {f"Inserted ID: {updated_id}"}
@@ -48,7 +48,7 @@ def add_task(task: TaskRequest):
     inserted_id = mongo_client.create(jsonable_encoder(task))
     return {f"Inserted ID: {inserted_id}"}
 
-@router.delete("/task/:id")
+@router.delete("/task/{id}")
 def delete_task(id):
     deleted_id = mongo_client.delete(object_id=id)
     return {f"Deleted ID: {deleted_id}"}

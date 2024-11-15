@@ -25,9 +25,9 @@ The choice of using mongodb it's determinated from the nature of data to save. A
     `docker compose up`
 
 4. if the 3 services starts correctly got to
-    frontend - `localhost:3000`
-    backend - `localhost:8080/docs`
-    database - use own client mongo to view database
+    - frontend - `localhost:3000`
+    - backend - `localhost:8080/docs`
+    - database - use own client mongo to view database
 
 # Backend
 

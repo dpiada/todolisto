@@ -75,7 +75,7 @@ In a cloud contenxt I'd use something like this
 - [ECR - ECS - ELB](https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-ecs-ecr-codedeploy.html)
 - [FE on s3](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/deploy-a-react-based-single-page-application-to-amazon-s3-and-cloudfront.html)
 - [ Gitlab to ECR](https://forum.gitlab.com/t/ci-cd-docker-image-to-aws/77386)
-
+- [ALB e cognito](https://repost.aws/it/knowledge-center/cognito-user-pool-alb-authentication)
 
 
 # Useful links

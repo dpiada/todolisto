@@ -1,12 +1,27 @@
 # TodoListo!
-
-
 Todolisto is test a project.
 It has a 3-Tiers architecture composed of frontend, backend and database
 
 The frontend it's developed with React.js, and the backend is in Python with FASTAPI Framework, The database is mongo.
 
 The choice of using mongodb it's determinated from the nature of data to save. A text with few fields.
+
+# Table of Contents
+- [Requirements](#requirements)
+- [How to Start](#how-to-start)
+- [Environment Variables](#environment-variables)
+  - [Backend Variables](#backend-variables)
+  - [Frontend Variables](#frontend-variables)
+- [Backend](#backend)
+  - [Project Structure](#project-structure)
+- [Frontend](#frontend)
+  - [Project Structure](#project-structure-1)
+- [Infrastructure in cloud](#infrastructure)
+  - [Frontend](#frontend-deployment)
+  - [Backend](#backend-deployment)
+  - [Database](#database)
+  - [Possible Integrations](#possible-integrations)
+- [Useful Links](#useful-links)
 
 # Requirements 
 
@@ -26,7 +41,7 @@ The choice of using mongodb it's determinated from the nature of data to save. A
 3. create own `.env` file: 
     - `cp .env.example .env`
     - fill the enviroments variable with your values\
-    **Important:** see Environment Variables section
+    **Important:** see [Environment Variables](#environment-variables) section
 
 4. run docker compose
 
@@ -85,7 +100,7 @@ The backend is developed in Python using the FastAPI framework. This choice was 
 ## Project Structure
 
 The project follows a well-organized folder structure to maintain modularity and clarity. Below is the description of each component in the scaffold:
-
+```
 root/
 │
 ├── Dockerfile
@@ -97,36 +112,82 @@ root/
 ├── routes/
 │   └── [API Route Handlers]
 └── main.py
-
-## Key Components
+```
 
 - Dockerfile
+
 Contains the necessary instructions to build the Docker image for the backend service, ensuring a consistent deployment environment.
 
 - requirements.txt
-A file listing all the dependencies required to run the backend. This is essential for setting up the development and production environments.
+
+    A file listing all the dependencies required to run the backend. This is essential for setting up the development and production environments.
 
 - models/
-This folder contains the object models used for data validation in FastAPI. These models define the structure and constraints of the data that the API accepts and returns. FastAPI uses Pydantic models for request and response validation.
+
+    This folder contains the object models used for data validation in FastAPI. These models define the structure and constraints of the data that the API accepts and returns. FastAPI uses Pydantic models for request and response validation.
 
 - provider/
-This folder serves as the interface to external services, such as databases, file storage, or other third-party services. Although the name provider might be a bit ambiguous, it refers to a layer that handles interactions with these external resources. Consider renaming it to something more specific, like services or external_communicators, for better clarity.
+
+    This folder serves as the interface to external services, such as databases, file storage, or other third-party services. Although the name provider might be a bit ambiguous, it refers to a layer that handles interactions with these external resources. Consider renaming it to something more specific, like services or external_communicators, for better clarity.
 
 - routes/
-This folder contains all the route definitions for the API. Each route corresponds to a specific HTTP endpoint and is responsible for handling requests and responses, leveraging FastAPI's path operation decorators.
+
+    This folder contains all the route definitions for the API. Each route corresponds to a specific HTTP endpoint and is responsible for handling requests and responses, leveraging FastAPI's path operation decorators.
 
 - main.py
-The entry point of the application. This file contains the FastAPI app instance and includes the startup logic for running the application, configuring routes, middleware, and other initializations.
 
-- .env.example
-This is a start point for copy own .env file
-
+    The entry point of the application. This file contains the FastAPI app instance and includes the startup logic for running the application, configuring routes, middleware, and other initializations.
 # Frontend
 
-Frontend is in javascript with react framework
-I used bootstrp-react for style and for component
+Frontend is written with React.js in addition I used react-bootstrap.
 
-# Deployment
+
+## Project Structure
+
+The project follows a well-organized folder structure to maintain modularity and clarity. Below is the description of each component in the scaffold:
+```
+root/
+│
+├── Dockerfile
+├── package.json
+├── package-lock.json
+├── public/
+│   └── [Static assets]
+└── src/
+    └── components
+    │   └── [objects to render in page]
+    ├── App.js 
+    └── index.js
+```
+
+- Dockerfile:
+
+    Contains the necessary instructions to build the Docker image for the backend service, ensuring a consistent deployment environment.
+
+- package.json: 
+    
+    Manages project dependencies, scripts (like npm start), and other configurations.
+- package-lock.json: 
+    
+    Ensures consistent dependency versions across installations.
+- public/: 
+    
+    Contains static files (e.g., index.html, favicon, logos), which are served directly.
+- src/: 
+
+    Where the core React application lives, including components and logic.
+
+    - components:
+    
+        Stores individual UI components that are reused throughout the app.
+    - App.js: 
+    
+        The root component that organizes and renders other components.
+    - index.js: 
+    
+        The entry point that initializes and renders the entire app into the HTML 
+
+# infrastructure
 
 In a cloud contenxt I'd use something like this
 

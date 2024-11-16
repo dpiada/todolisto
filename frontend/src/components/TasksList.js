@@ -32,7 +32,6 @@ const TaskList = ({ tasks, loading, error, onTaskReload }) => {
 
   return (
     <div>
-      <h3>Task List</h3>
       <ListGroup>
         {tasks.map((task) => (
           <ListGroup.Item

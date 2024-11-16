@@ -66,7 +66,7 @@ In a cloud contenxt I'd use something like this
 **Database**
 - document DB managed because support mongodb
 
-**Possible Integration**
+**Possible Integrations**
 - it can be use cognito userpool and link to ALB to support a kind of authentication
 
 **Links**

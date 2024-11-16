@@ -32,6 +32,10 @@ class Mongo:
         
     def read(self, date: str = None, priority: str = None, status: str = None,
             order_by: str = 'date', ascending: bool = True):
+        
+
+
+
         try:
             filter_query = {}
 
@@ -42,7 +46,10 @@ class Mongo:
                 filter_query['priority'] = priority
 
             if status:
-                filter_query['status'] = status
+                if status.lower() == 'true':
+                    filter_query['status'] = True
+                elif status.lower() == 'false':
+                    filter_query['status'] = False
 
             sort_query = {}
             if order_by:

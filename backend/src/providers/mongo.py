@@ -1,5 +1,4 @@
 import os
-
 from pymongo import MongoClient
 from bson import ObjectId
 
@@ -19,10 +18,8 @@ class Mongo:
             database_name = database_name or os.getenv('MONGO_DB_NAME')
             collection_name = collection_name or os.getenv('MONGO_COLLECTION_NAME')
             
-            # Construct the MongoDB URI
             uri = f"mongodb://{username}:{password}@{hostname}:{port}/"
             
-            # Connect to the MongoDB client
             client = MongoClient(uri)
             db = client[database_name]
             self.collection = db[collection_name]

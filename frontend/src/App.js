@@ -75,10 +75,10 @@ class App extends Component {
     this.fetchTasks();
   }
 
+  
   render() {
     const { tasks, loading, error, filterDate, filterPriority, filterStatus, orderBy, ascending } = this.state;
 	  const uniqueDates = [...new Set(tasks.map(task => task.date))];
-
 
     return (
       <Container>

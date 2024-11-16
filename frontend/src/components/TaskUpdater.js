@@ -62,7 +62,7 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
       const data = await response.json();
       onTaskReload();
       alert('Task deleted successfully!');
-      handleClose(); // Close the modal after deleting
+      handleClose(); 
     } catch (error) {
       console.error('Error:', error);
       alert('Failed to delete task. Please try again.');
@@ -70,9 +70,9 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal size="lg" show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Update Task</Modal.Title>
+        <Modal.Title>Details and Update Task</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>

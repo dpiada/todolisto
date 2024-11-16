@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Modal, Form, Button } from 'react-bootstrap';
 
-const TaskAdder = ({ onTaskReload }) => {
+const TaskAdder = ({ show, handleClose, onTaskReload }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -9,6 +10,7 @@ const TaskAdder = ({ onTaskReload }) => {
     status: false,
   });
 
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -34,8 +36,6 @@ const TaskAdder = ({ onTaskReload }) => {
 
       onTaskReload();
 
-      alert(`Task added successfully! ID: ${data}`);
-
       setFormData({
         title: "",
         description: "",
@@ -43,6 +43,8 @@ const TaskAdder = ({ onTaskReload }) => {
         priority: "normal",
         status: false,
       });
+
+      handleClose(); 
     } catch (error) {
       console.error('Error:', error);
       alert('Failed to add task. Please try again.');
@@ -50,50 +52,75 @@ const TaskAdder = ({ onTaskReload }) => {
   };
 
   return (
-    <div className="task-adder-container">
-      <form onSubmit={handleSubmit} className="task-adder-form">
-        <h3>Task Adder</h3>
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
+    <Modal size="lg" show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Task Adder</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="title">
+            <Form.Label>Title:</Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="Enter task title"
+            />
+          </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
+          <Form.Group controlId="description">
+            <Form.Label>Description:</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Enter task description"
+            />
+          </Form.Group>
 
-        <div className="form-group">
-          <label htmlFor="priority">Priority:</label>
-          <select
-            id="priority"
-            name="priority"
-            value={formData.priority}
-            onChange={handleChange}
-            className="form-control"
-          >
-            <option value="normal">Normal</option>
-            <option value="high">High</option>
-            <option value="low">Low</option>
-          </select>
-        </div>
+          <Form.Group controlId="date">
+            <Form.Label>Date:</Form.Label>
+            <Form.Control
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+            />
+          </Form.Group>
 
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-    </div>
+          <Form.Group controlId="priority">
+            <Form.Label>Priority:</Form.Label>
+            <Form.Control
+              as="select"
+              name="priority"
+              value={formData.priority}
+              onChange={handleChange}
+            >
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+              <option value="low">Low</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group controlId="status">
+            <Form.Check
+              type="checkbox"
+              label="Completed"
+              name="status"
+              checked={formData.status}
+              onChange={(e) => setFormData({ ...formData, status: e.target.checked })}
+            />
+          </Form.Group>
+
+          <Button variant="primary" type="submit" block>
+            Submit
+          </Button>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

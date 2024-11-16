@@ -187,7 +187,7 @@ root/
     
         The entry point that initializes and renders the entire app into the HTML 
 
-# infrastructure
+# possible solution for cloud contenxt 
 
 In a cloud contenxt I'd use something like this
 

@@ -33,7 +33,7 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
         throw new Error('Failed to update task');
       }
 
-      const data = await response.json();
+      await response.json();
       onTaskReload();
       alert('Task updated successfully!');
       handleClose(); // Close the modal after updating
@@ -59,7 +59,7 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
         throw new Error('Failed to delete task');
       }
 
-      const data = await response.json();
+      await response.json();
       onTaskReload();
       alert('Task deleted successfully!');
       handleClose(); 

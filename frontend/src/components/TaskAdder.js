@@ -32,7 +32,7 @@ const TaskAdder = ({ show, handleClose, onTaskReload }) => {
         throw new Error('Failed to add task');
       }
 
-      const data = await response.json();
+      await response.json();
 
       onTaskReload();
 

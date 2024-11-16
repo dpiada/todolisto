@@ -1,4 +1,5 @@
 FROM python:3.12-slim-bookworm
+LABEL maintainer="Daniele Piantoni <daniele.piantoni@gmail.com>"
 
 WORKDIR /app
 

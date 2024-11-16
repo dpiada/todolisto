@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import Task from './Task';
 import TaskUpdater from './TaskUpdater'; 
-import TaskDetails from './TaskDetails';
 
 const TaskList = ({ tasks, loading, error, onTaskReload }) => {
   const [showModal, setShowModal] = useState(false);

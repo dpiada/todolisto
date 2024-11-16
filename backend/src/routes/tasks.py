@@ -3,7 +3,7 @@ from fastapi.encoders import jsonable_encoder
 from src.providers.mongo import Mongo
 from src.models.task import TaskResponse, TaskRequest
 
-mongo_client = Mongo(hostname="mongodb", port=27017, username="mongolone", password="monoglonepw", database_name="my_db", collection_name="notes")
+mongo_client = Mongo()
 
 router = APIRouter()
 

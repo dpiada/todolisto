@@ -1,3 +1,5 @@
+import os
+
 from pymongo import MongoClient
 from bson import ObjectId
 
@@ -7,16 +9,27 @@ class MongoError(Exception):
         super().__init__(f"{message}")
 
 class Mongo:
-    def __init__(self, hostname, port, username, password, database_name, collection_name):
+    def __init__(self, database_name=None, collection_name=None):
         try:
-            client = MongoClient("mongodb://mongolone:mongolonepw@mongodb:27017/")
+            # Get credentials and connection info from environment variables
+            hostname = os.getenv('MONGO_HOSTNAME', 'localhost')
+            port = int(os.getenv('MONGO_PORT', 27017))
+            username = os.getenv('MONGO_USERNAME')
+            password = os.getenv('MONGO_PASSWORD')
+            database_name = database_name or os.getenv('MONGO_DB_NAME')
+            collection_name = collection_name or os.getenv('MONGO_COLLECTION_NAME')
+            
+            # Construct the MongoDB URI
+            uri = f"mongodb://{username}:{password}@{hostname}:{port}/"
+            
+            # Connect to the MongoDB client
+            client = MongoClient(uri)
             db = client[database_name]
             self.collection = db[collection_name]
             
             print("Connected to MongoDB successfully!")
         except Exception as e:
             raise MongoError(f"Failed to connect to MongoDB: {e}")
-
     def create(self, data):
         try:
             result = self.collection.insert_one(data)
@@ -32,9 +45,6 @@ class Mongo:
         
     def read(self, date: str = None, priority: str = None, status: str = None,
             order_by: str = 'date', ascending: bool = True):
-        
-
-
 
         try:
             filter_query = {}

@@ -6,42 +6,120 @@ It has a 3-Tiers architecture composed of frontend, backend and database
 
 The frontend it's developed with React.js, and the backend is in Python with FASTAPI Framework, The database is mongo.
 
-The choice of using mongodb it's determinated from the nature of data to save. A text with few field.
+The choice of using mongodb it's determinated from the nature of data to save. A text with few fields.
 
 # Requirements 
 
 - [docker](https://www.docker.com/)
 - [docker compose](https://docs.docker.com/compose/)
 
-# How to start locally
+# How to start
 
-1. clone repository 
+1. clone repository:
+
     `git clone git@github.com:dpiada/todolisto.git`
 
-2. change project directory 
+2. change project directory:
+
     `cd todolisto`
 
-3. run docker compose 
+3. create own `.env` file: 
+    - `cp .env.example .env`
+    - fill the enviroments variable with your values\
+    **Important:** see Environment Variables section
+
+4. run docker compose
+
     `docker compose up`
 
-4. if the 3 services starts correctly got to
-    - frontend - `localhost:3000`
-    - backend - `localhost:8080/docs`
-    - database - use own client mongo to view database
+
+# Environment Variables
+
+## Backend Variables
+
+`MONGO_HOSTNAME`
+
+- Description: Specifies the hostname or IP address of your MongoDB server. This is the address where your MongoDB instance is running.
+    
+- Example: `localhost` or `mongodb://192.168.1.100`.
+
+`MONGO_PORT`
+
+- Description: The port number on which the MongoDB service is listening. By default, MongoDB uses port 27017, unless configured otherwise.
+
+- Example: `27017`.
+
+`MONGO_USERNAME`
+
+- Description: The username used to authenticate against the MongoDB database. This is required if authentication is enabled for your MongoDB instance.
+- Example: `admin` or `myUser`.
+
+`MONGO_PASSWORD`
+
+- Description: The password associated with the `MONGO_USERNAME` used to authenticate against the MongoDB database.
+- Example: `yourSecurePassword`.
+
+`MONGO_DB_NAME`
+
+- Description: The name of the database within MongoDB that your application will be interacting with. If the database doesn't exist, MongoDB will create it automatically when the first document is inserted.    
+- Example: `myAppDB` or `productionDatabase`.
+
+`MONGO_COLLECTION_NAME`
+
+- Description: The name of the collection in your MongoDB database where data is stored. Collections are analogous to tables in relational databases.
+- Example: `task`
+
+## Frontend Variables
+
+`REACT_APP_BASE_URL`
+
+- Description: The base URL for your backend API that the frontend application will communicate with. This variable allows you to easily configure different environments (development, staging, production) without hardcoding the URL into your application.
+
+- Example: https://api.example.com or http://localhost:5000.
+
 
 # Backend
 
-The backend it's developed in python and I used FastApi framework, this because is lightweight and fast to use.
+The backend is developed in Python using the FastAPI framework. This choice was made due to its lightweight nature and its ability to deliver high performance in building APIs.
 
-The backend has followinf scaffold:
+## Project Structure
 
-`root`:
+The project follows a well-organized folder structure to maintain modularity and clarity. Below is the description of each component in the scaffold:
+
+root/
+│
+├── Dockerfile
+├── requirements.txt
+├── models/
+│   └── [Object Models for Validation]
+├── provider/
+│   └── [File and External Service Communication]
+├── routes/
+│   └── [API Route Handlers]
+└── main.py
+
+## Key Components
+
 - Dockerfile
-- requerements
-- `models` -> folder that contains object model for validation
-- `provider` -> folder used for save file for communicate with external service like db... maybe thise name is a little confusiong
-- `routes` -> folder with routes
-- main -> start point 
+Contains the necessary instructions to build the Docker image for the backend service, ensuring a consistent deployment environment.
+
+- requirements.txt
+A file listing all the dependencies required to run the backend. This is essential for setting up the development and production environments.
+
+- models/
+This folder contains the object models used for data validation in FastAPI. These models define the structure and constraints of the data that the API accepts and returns. FastAPI uses Pydantic models for request and response validation.
+
+- provider/
+This folder serves as the interface to external services, such as databases, file storage, or other third-party services. Although the name provider might be a bit ambiguous, it refers to a layer that handles interactions with these external resources. Consider renaming it to something more specific, like services or external_communicators, for better clarity.
+
+- routes/
+This folder contains all the route definitions for the API. Each route corresponds to a specific HTTP endpoint and is responsible for handling requests and responses, leveraging FastAPI's path operation decorators.
+
+- main.py
+The entry point of the application. This file contains the FastAPI app instance and includes the startup logic for running the application, configuring routes, middleware, and other initializations.
+
+- .env.example
+This is a start point for copy own .env file
 
 # Frontend
 

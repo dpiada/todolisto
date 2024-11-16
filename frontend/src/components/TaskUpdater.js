@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
   const [formData, setFormData] = useState({
     title: item.title,
@@ -21,7 +23,7 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8080/update/${item.id}`, {
+      const response = await fetch(`${baseUrl}/update/${item.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +50,7 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8080/task/${item.id}`, {
+      const response = await fetch(`${baseUrl}/task/${item.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

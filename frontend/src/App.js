@@ -6,6 +6,8 @@ import TaskList from './components/TasksList';
 import TaskAdder from './components/TaskAdder';
 import { Button, Form } from 'react-bootstrap';
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -52,7 +54,7 @@ class App extends Component {
         queryParams.append('ascending', ascending);
       }
 
-      const url = `http://localhost:8080/tasks/?${queryParams.toString()}`;
+      const url = `${baseUrl}/tasks/?${queryParams.toString()}`;
 
       const response = await fetch(url);
       if (!response.ok) {

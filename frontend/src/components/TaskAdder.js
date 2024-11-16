@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
+
 const TaskAdder = ({ show, handleClose, onTaskReload }) => {
   const [formData, setFormData] = useState({
     title: "",
@@ -20,7 +23,7 @@ const TaskAdder = ({ show, handleClose, onTaskReload }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/add-task', {
+      const response = await fetch(`${baseUrl}/add-task`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

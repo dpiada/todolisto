@@ -19,8 +19,8 @@ services:
     volumes:
       - mongodb_data:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mongolone
-      MONGO_INITDB_ROOT_PASSWORD: mongolonepw
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     networks:
       - application
     healthcheck:
@@ -31,7 +31,7 @@ services:
 
 
   ################################
-  #       Backend Todo-list      #
+  #       Backend Todolisto      #
   ################################
   backend:
     restart: always
@@ -40,6 +40,13 @@ services:
     build:
       context: ./backend
       dockerfile: ./Dockerfile
+    environment:
+      MONGO_HOSTNAME: ${MONGO_HOSTNAME}
+      MONGO_PORT: ${MONGO_PORT}
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_DB_NAME: ${MONGO_DB_NAME}
+      MONGO_COLLECTION_NAME: "${MONGO_COLLECTION_NAME}"
     volumes:
       - ./backend:/app
     networks:
@@ -57,6 +64,8 @@ services:
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
+    environment:
+      REACT_APP_BASE_URL: ${REACT_APP_BASE_URL}
     volumes:
       - ./frontend:/app
       - /app/node_modules  

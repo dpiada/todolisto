@@ -187,6 +187,17 @@ root/
     
         The entry point that initializes and renders the entire app into the HTML 
 
+## Screens
+
+- **list all tasks**
+![list](./files/list.png)
+
+- **add task**
+![list](./files/add-task.png)
+
+- **detail, update and delete a task**  
+![list](./files/details&update&delete.png)
+
 # possible solution for cloud contenxt 
 
 In a cloud contenxt I'd use something like this

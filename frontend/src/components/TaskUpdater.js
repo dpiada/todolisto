@@ -12,7 +12,6 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
     status: item.status,
   });
 
-  // Handle form field changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -56,7 +55,6 @@ const TaskUpdater = ({ show, handleClose, item, onTaskReload }) => {
           'Content-Type': 'application/json',
         },
       });
-
       if (!response.ok) {
         throw new Error('Failed to delete task');
       }

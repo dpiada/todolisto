@@ -56,7 +56,7 @@ The choice of using mongodb it's determinated from the nature of data to save. A
 
 - Description: Specifies the hostname or IP address of your MongoDB server. This is the address where your MongoDB instance is running.
     
-- Example: `localhost` or `mongodb://192.168.1.100`.
+- Example: `localhost` or `mongodb`.
 
 `MONGO_PORT`
 

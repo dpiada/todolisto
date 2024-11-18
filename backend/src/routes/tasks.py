@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from src.providers.mongo import Mongo
 from src.models.task import TaskResponse, TaskRequest
@@ -38,15 +38,32 @@ def get_task(id):
 
     return response
 
-@router.put("/update/{id}")
+@router.put("/update/{id}", status_code=200)
 def update_task(id, task: TaskRequest):
     updated_id = mongo_client.update(id,jsonable_encoder(task))
-    return {f"Inserted ID: {updated_id}"}
+    task = mongo_client.create(jsonable_encoder(task))
+    response = TaskResponse(
+            id=str(task["_id"]),
+            title=task["title"],
+            description=task["description"],
+            date=task["date"],
+            priority=task["priority"],
+            status=task["status"]
+        )
+    return response
 
-@router.post("/add-task")
+@router.post("/add-task", status_code=201)
 def add_task(task: TaskRequest):
-    inserted_id = mongo_client.create(jsonable_encoder(task))
-    return {f"Inserted ID: {inserted_id}"}
+    task = mongo_client.create(jsonable_encoder(task))
+    response = TaskResponse(
+            id=str(task["_id"]),
+            title=task["title"],
+            description=task["description"],
+            date=task["date"],
+            priority=task["priority"],
+            status=task["status"]
+        )
+    return response
 
 @router.delete("/task/{id}")
 def delete_task(id):

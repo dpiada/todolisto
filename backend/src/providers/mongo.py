@@ -30,7 +30,7 @@ class Mongo:
     def create(self, data):
         try:
             result = self.collection.insert_one(data)
-            return result.inserted_id
+            return self.read_one(result.inserted_id)
         except Exception as e:
             raise MongoError(f"Failed to insert document: {e}")
 
@@ -71,7 +71,8 @@ class Mongo:
 
     def update(self, object_id, update_data):
         try:
-            return self.collection.update_one({"_id": ObjectId(object_id)}, {"$set": update_data})
+            self.collection.update_one({"_id": ObjectId(object_id)}, {"$set": update_data})
+            return self.read_one(object_id)
         except Exception as e:
             raise MongoError(f"Failed to update document: {e}")
 
